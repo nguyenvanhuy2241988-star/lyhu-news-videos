@@ -49,5 +49,8 @@ Người dùng: Nguyễn Văn Huy (LYHU). Đã cho phép TỰ ĐĂNG lên blog l
 - Giọng đọc đúng "ép em xi gi" ở câu mở và đọc đủ lời; độ dài video = giọng + đoạn kết; không lặng >0,6 s; màu lệch ≤4; không chữ tràn khung.
 - Không trùng bài đã đăng; ngày tin trong 48 giờ.
 
-## 7. Báo kết quả
+## 7. Báo kết quả và nhật ký (BẮT BUỘC)
+- ĐẦU mỗi lần chạy (ngay sau khi đọc RUNBOOK): `insert into news_video_runs(slot) values ('<0630|1930>') returning id;` rồi nhớ `id`.
+- Dù đăng, nháp, bỏ khung hay lỗi, trước khi kết thúc PHẢI cập nhật dòng đó: `update news_video_runs set finished_at=now(), outcome='<published|draft|skipped|failed>', reason='<lý do một câu; nếu bỏ khung ghi rõ từng tin bị loại vì sao: quá 48 giờ, chưa kiểm chứng được, trùng bài nào>', request_id='<ID hoặc null>', article_url='<URL hoặc null>', candidates='<json các tin đã xét: tiêu đề, ngày, lý do loại/chọn>'::jsonb where id=<id>;`
+- Nếu một bước hỏng (ví dụ không clone được kho, không tải được giọng), vẫn ghi `failed` kèm thông báo lỗi nguyên văn rồi kết thúc, không im lặng.
 - Cuối mỗi lần chạy, kết quả một dòng: khung giờ, tiêu đề, trạng thái (published/draft/bỏ khung) và `article_url`. Nếu thông báo đẩy khả dụng, gửi cùng nội dung.
