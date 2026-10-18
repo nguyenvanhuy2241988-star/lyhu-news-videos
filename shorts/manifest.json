@@ -1,0 +1,69 @@
+{
+ "items": [
+  {
+   "name": "v01-gioi-thieu-lyhu",
+   "title": "Giới thiệu LYHU – kết nối chân thành, hợp tác bền vững",
+   "sort_order": 6
+  },
+  {
+   "name": "v02-tuyen-nha-phan-phoi",
+   "title": "LYHU tuyển nhà phân phối khu vực",
+   "sort_order": 7
+  },
+  {
+   "name": "v03-khoai-mon-cvt",
+   "title": "Khoai môn sấy CVT – giòn ngon, vị tươi",
+   "sort_order": 8
+  },
+  {
+   "name": "v04-sieu-thi-mua-10-tang-1",
+   "title": "Siêu thị mua 10 tặng 1",
+   "sort_order": 9
+  },
+  {
+   "name": "v05-boyo-hai-mau-bot",
+   "title": "BOYO – hai màu bột rắc cả thế giới",
+   "sort_order": 10
+  },
+  {
+   "name": "v06-uhi-mua-5-tang-1",
+   "title": "Kẹo dẻo UHi mua 5 tặng 1",
+   "sort_order": 11
+  },
+  {
+   "name": "v07-cvt-20-tang-3-30-tang-6",
+   "title": "CVT mua 20 tặng 3, mua 30 tặng 6",
+   "sort_order": 12
+  },
+  {
+   "name": "v08-dat-it-cung-giao",
+   "title": "Đặt ít cũng giao – tiện cho tiệm nhỏ",
+   "sort_order": 13
+  },
+  {
+   "name": "v09-khu-vuc-doc-quyen",
+   "title": "Khu vực độc quyền cho nhà phân phối",
+   "sort_order": 14
+  },
+  {
+   "name": "v11-abi-5-mon-ke-thu-ngan",
+   "title": "ABI – 5 món đáng đặt ở kệ thu ngân",
+   "sort_order": 15
+  },
+  {
+   "name": "v12-uhi-3-vi-quay-vong",
+   "title": "UHi 3 vị quay vòng nhanh",
+   "sort_order": 16
+  },
+  {
+   "name": "v13-hoi-dap-npp",
+   "title": "Hỏi đáp nhà phân phối LYHU",
+   "sort_order": 17
+  },
+  {
+   "name": "v14-trend-tran-nha",
+   "title": "Trend trần nhà – bắt trend cùng sản phẩm LYHU",
+   "sort_order": 18
+  }
+ ]
+}
