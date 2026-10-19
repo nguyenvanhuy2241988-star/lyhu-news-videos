@@ -12,6 +12,8 @@ Người dùng: Nguyễn Văn Huy (LYHU). Đã cho phép TỰ ĐĂNG lên blog l
 - Chỉ nhận tin có ngày rõ ràng trong 48 giờ gần nhất. Mở bài gốc bằng WebFetch, lấy số liệu, ngày, đơn vị công bố. Ưu tiên nguồn gốc (Cục/Chi cục Thống kê, bộ ngành, doanh nghiệp công bố) và báo chính thống. Không dùng bài vendor/quảng cáo làm nguồn duy nhất.
 - Số liệu thống kê khác phát biểu doanh nghiệp: nói rõ ai nói ("theo Saigon Co.op").
 - Chống trùng: truy vấn `blog_posts` 30 ngày gần nhất bằng regex ILIKE/`~*` trên title và content cho các số chính và từ khóa (kể cả bài do hệ thống Gemini tự đăng). Trùng sự kiện + trùng số = bỏ, trừ khi có góc/số mới thật sự.
+- HẠN MỨC THỜI GIAN CHO BƯỚC TÌM TIN (cứng): tối đa 12 phút và tối đa 14 lệnh WebSearch/WebFetch tính từ lúc bắt đầu tìm. Hết hạn mức mà chưa có tin đạt thì KHÔNG tìm tiếp: ghi nhật ký `skipped` (mục 7, kèm danh sách tin đã xét) rồi kết thúc. Khi đã có một tin đạt thì chốt ngay, không tìm thêm tin khác để so sánh.
+- Quy tắc quyết định nhanh: một tin đạt khi (a) có ngày trong 48 giờ, (b) mở được bài gốc và lấy được số liệu, (c) số chính được xác nhận bởi ít nhất một nguồn thứ hai hoặc là số do cơ quan chính thức công bố, (d) không trùng bài đã đăng. Gặp tin đạt đầu tiên là dừng tìm.
 - NẾU KHÔNG CÓ TIN ĐẠT (đủ mới, đã kiểm chứng, không trùng): BỎ KHUNG này. Không đăng bài chống chế. Gửi thông báo "Khung HH:MM: bỏ, không có tin đủ kiểm chứng" và kết thúc.
 
 ## 2. Lời bản tin (45–55 giây, 110–150 chữ)
@@ -51,6 +53,8 @@ Người dùng: Nguyễn Văn Huy (LYHU). Đã cho phép TỰ ĐĂNG lên blog l
 - Không trùng bài đã đăng; ngày tin trong 48 giờ.
 
 ## 7. Báo kết quả và nhật ký (BẮT BUỘC)
+- NGUYÊN TẮC KHÔNG ĐƯỢC TREO: không bao giờ kết thúc lượt chạy khi dòng nhật ký còn `outcome='started'`. Hành động CUỐI CÙNG của mọi lượt chạy là câu `update` ghi `published`, `draft`, `skipped` hoặc `failed`. Nếu sắp hết thời gian hoặc không chắc làm kịp, dừng việc đang làm và ghi `failed` hoặc `skipped` kèm lý do ngay.
+- ĐIỂM MỐC (checkpoint): sau mỗi bước lớn, cập nhật cột `reason` thành 'bước: <tên bước>, <giờ VN>' để nếu lượt chạy dừng giữa chừng vẫn biết nó dừng ở đâu. Các mốc theo thứ tự: `đọc RUNBOOK`, `tìm tin xong (chọn: <tiêu đề> hoặc không có)`, `đã tạo giọng`, `đã dựng xong video`, `đã đẩy lên kho`, `đã gọi hàm đăng bài`.
 - ĐẦU mỗi lần chạy (ngay sau khi đọc RUNBOOK): `insert into news_video_runs(slot) values ('<0630|1930>') returning id;` rồi nhớ `id`.
 - Dù đăng, nháp, bỏ khung hay lỗi, trước khi kết thúc PHẢI cập nhật dòng đó: `update news_video_runs set finished_at=now(), outcome='<published|draft|skipped|failed>', reason='<lý do một câu; nếu bỏ khung ghi rõ từng tin bị loại vì sao: quá 48 giờ, chưa kiểm chứng được, trùng bài nào>', request_id='<ID hoặc null>', article_url='<URL hoặc null>', candidates='<json các tin đã xét: tiêu đề, ngày, lý do loại/chọn>'::jsonb where id=<id>;`
 - Nếu một bước hỏng (ví dụ không clone được kho, không tải được giọng), vẫn ghi `failed` kèm thông báo lỗi nguyên văn rồi kết thúc, không im lặng.
