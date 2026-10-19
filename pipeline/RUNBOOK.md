@@ -27,6 +27,7 @@ Người dùng: Nguyễn Văn Huy (LYHU). Đã cho phép TỰ ĐĂNG lên blog l
 
 ## 3. Giọng (ElevenLabs)
 - `mcp__ElevenLabs__creative_generate_speech`: voice_id `5yEPTrA0uAhZsBEhHjfi` (Chi), model `eleven_v4`, generations_count 1, flow_id `2GU2TcQGrQhyDssHlHpX`, tiền tố `[confident] `. KHÔNG gọi lại để thử lại. Poll `creative_get_flow_run_status` (đợi bằng `sleep` ≤20 s mỗi lần) tới khi xong.
+- TÊN THƯƠNG HIỆU TRONG LỜI ĐỌC: viết "Ly Hu" (hai âm tiết) mỗi khi giọng phải đọc tên LYHU; viết "LYHU" liền sẽ bị đọc đánh vần từng chữ cái (đã xảy ra). Riêng câu kết cố định giữ nguyên "lyhu chấm com chấm vn". Trên hình vẫn viết LYHU.
 - Tải: `curl -sS -o chi.mp3 "<content_url>"` (storage.googleapis.com truy cập được từ máy chủ). Kiểm file > 100 KB. `ffmpeg -y -i chi.mp3 -ar 44100 -ac 1 chi.wav`.
 - Nếu một câu đọc sai (đặc biệt "ép em xi gi"): chỉ tạo lại riêng câu đó và ghép; nếu không sửa được, đăng ở trạng thái draft (xem mục 6).
 
