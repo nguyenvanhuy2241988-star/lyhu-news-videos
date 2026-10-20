@@ -39,6 +39,8 @@ Làm như RUNBOOK.md mục 5 với các khác biệt:
 - `status`: "published" CHỈ khi bài nguồn đang `published` VÀ qua cổng mục 6; ngược lại "draft".
 - Push kho, gọi `publish-news-video` bằng `net.http_post`, kiểm lại bằng `select ... from blog_posts` như RUNBOOK mục 5.
 
+- Kho video trong app: SAU khi bài đăng thành công (200, có video_url), chèn một dòng vào `wholesale_short_videos` (category `lyhu`, `is_active` true, `sort_order` = max+1, `title` ngắn "Mẹo bán lẻ: ...", `caption` kiểu TikTok có hashtag #banle #quanlybanhang #LYHU #FMCG và câu "Đọc thêm tại lyhu.com.vn, mục Tin tức."), dùng lại `video_url` và `thumbnail_url` của chính bài vừa tạo (không tải lại tệp). Chỉ làm khi bài ở trạng thái published; kiểm trước `where video_url=...` để không chèn trùng.
+
 ## 6. Cổng chất lượng (đủ mới published, thiếu thì draft + báo)
 - Lời bám bài nguồn, không thêm số liệu/tên mới; ví dụ giả định có nhãn.
 - Đọc "Ly Hu" ở câu mở; đủ lời; không lặng >0,6 s; màu lệch ≤4; đã xem sheet.png và không có chữ tràn/đè.
